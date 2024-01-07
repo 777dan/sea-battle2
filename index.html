@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sea Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Sea Battle</h1>
+    <div id="game-info" class="container">
+        <p>Turn: <span id="turn"></span></p>
+        <p>Info: <span id="info"></span></p>
+    </div>
+    <div id="game-boards" class="container"></div>
+    <div id="game-option" class="container">
+        <div id="ship-0" class="ship deck-one" draggable="true">
+            <div id="deck-one-0" class="deck"></div>
+        </div>
+        <div id="ship-1" class="ship deck-one" draggable="true">
+            <div id="deck-one-1" class="deck"></div>
+        </div>
+        <div id="ship-2" class="ship deck-one" draggable="true">
+            <div id="deck-one-2" class="deck"></div>
+        </div>
+        <div id="ship-3" class="ship deck-one" draggable="true">
+            <div id="deck-one-3" class="deck"></div>
+        </div>
+        <div id="ship-4" class="ship deck-two" draggable="true">
+            <div id="deck-two-0" class="deck"></div>
+            <div id="deck-two-1" class="deck"></div>
+        </div>
+        <div id="ship-5" class="ship deck-two" draggable="true">
+            <div id="deck-two-2" class="deck"></div>
+            <div id="deck-two-3" class="deck"></div>
+        </div>
+        <div id="ship-6" class="ship deck-two" draggable="true">
+            <div id="deck-two-4" class="deck"></div>
+            <div id="deck-two-5" class="deck"></div>
+        </div>
+        <div id="ship-7" class="ship deck-three" draggable="true">
+            <div id="deck-three-0" class="deck"></div>
+            <div id="deck-three-1" class="deck"></div>
+            <div id="deck-three-2" class="deck"></div>
+        </div>
+        <div id="ship-8" class="ship deck-three" draggable="true">
+            <div id="deck-three-3" class="deck"></div>
+            <div id="deck-three-4" class="deck"></div>
+            <div id="deck-three-5" class="deck"></div>
+        </div>
+        <div id="ship-9" class="ship deck-four" draggable="true">
+            <div id="deck-four-0" class="deck"></div>
+            <div id="deck-four-1" class="deck"></div>
+            <div id="deck-four-2" class="deck"></div>
+            <div id="deck-four-2" class="deck"></div>
+        </div>
+    </div>
+    <div class="setup-buttons container" id="setup-buttons">
+        <button id="start" class="btn">Start Game</button>
+        <button id="rotate" class="btn">Rotate Your Ships</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
