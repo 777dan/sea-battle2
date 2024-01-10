@@ -93,18 +93,8 @@ function getValidity(allBoardBlocks, isHorisontal, startIndex, ship) {
 
   for (let i = 0; i < ship.length; i++) {
     if (isHorisontal) {
-      // console.log(allBoardBlocks[Number(validStart) + i]);
-      // console.log(validStart)
-      // console.log(i)
-      // // console.log(ship)
-      // console.log('----------------------')
       shipBlocks.push(allBoardBlocks[Number(validStart) + i]);
     } else {
-      // console.log(allBoardBlocks[Number(validStart) + i * width]);
-      // console.log(validStart)
-      // console.log(i)
-      // console.log(ship)
-      // console.log('----------------------')
       shipBlocks.push(allBoardBlocks[Number(validStart) + i * width]);
     }
   }
@@ -135,28 +125,60 @@ function generate(user, ship, startId) {
   );
 
   if (notTaken) {
-    for (let i = 0; i < ship.length; i++) {
-      let blockingBlockUp;
-      let blockingBlockDown;
-      if (Number(shipBlocks[i].id.substring(6)) - 10 >= 0) {
-        blockingBlockUp = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) - 10).padStart(2, "0")}`)[1];
-        blockingBlockUp.classList.add("blocking");
+    if (isHorisontal) {
+      for (let i = 0; i < ship.length; i++) {
+        let blockingBlockUpHor;
+        let blockingBlockDownHor;
+        if (Number(shipBlocks[i].id.substring(6)) - 10 >= 0) {
+          blockingBlockUpHor = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) - 10).padStart(2, "0")}`)[1];
+          blockingBlockUpHor.classList.add("blocking");
+        }
+        if (Number(shipBlocks[i].id.substring(6)) + 10 <= 99) {
+          blockingBlockDownHor = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) + 10).padStart(2, "0")}`)[1];
+          blockingBlockDownHor.classList.add("blocking");
+        }
       }
-      if (Number(shipBlocks[i].id.substring(6)) + 10 <= 99) {
-        blockingBlockDown = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) + 10).padStart(2, "0")}`)[1];
-        blockingBlockDown.classList.add("blocking");
+      for (let i = 1; i <= 3; i++) {
+        let blockingBlockLeftHor;
+        let blockingBlockRightHor;
+        if (Number(String(startIndex).padStart(2, "0")[1]) > 0 && (Number(startIndex) + 19) - (i * 10) < 100 && (Number(startIndex) + 19) - (i * 10) >= 0) {
+          blockingBlockLeftHor = document.querySelectorAll(`#block-${String((Number(startIndex) + 19) - (i * 10)).padStart(2, "0")}`)[1];
+          blockingBlockLeftHor.classList.add("blocking");
+        }
+        if (Number(String(startIndex).padStart(2, "0")[1]) < 9 && String((Number(startIndex) + ship.length + 20) - i * 10) < 100 && String((Number(startIndex) + ship.length + 20) - i * 10) >= 0) {
+          blockingBlockRightHor = document.querySelectorAll(`#block-${String((Number(startIndex) + ship.length + 20) - i * 10).padStart(2, "0")}`)[1];
+          blockingBlockRightHor.classList.add("blocking");
+        }
       }
-    }
-    for (let i = 1; i <= 3; i++) {
-      let blockingBlockLeft;
-      let blockingBlockRight;
-      if (Number(String(startIndex).padStart(2, "0")[1]) > 0 && (Number(startIndex) + 19) - (i * 10) < 100 && (Number(startIndex) + 19) - (i * 10) >= 0) {
-        blockingBlockLeft = document.querySelectorAll(`#block-${String((Number(startIndex) + 19) - (i * 10)).padStart(2, "0")}`)[1];
-        blockingBlockLeft.classList.add("blocking");
+    } else {
+      for (let i = 0; i < ship.length; i++) {
+        let blockingBlockLeftVert;
+        let blockingBlockRightVert;
+        console.log(startIndex);
+        console.log(Number(String(startIndex).padStart(2, "0")[1]) > 0);
+        console.log((Number(startIndex) + ((ship.length - 1) * 10) - 1) - (i * 10));
+        console.log('------------------------------------------------');
+        Number(shipBlocks[i].id.substring(6))
+        if (Number(shipBlocks[i].id.substring(6).padStart(2, "0")[1]) > 0 && Number(shipBlocks[i].id.substring(6)) - 1 < 100 && Number(shipBlocks[i].id.substring(6)) - 1 >= 0) {
+          blockingBlockLeftVert = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) - 1).padStart(2, "0")}`)[1];
+          blockingBlockLeftVert.classList.add("blocking");
+        }
+        if (Number(shipBlocks[i].id.substring(6).padStart(2, "0")[1]) < 9 && Number(shipBlocks[i].id.substring(6)) + 1 < 100 && Number(shipBlocks[i].id.substring(6)) + 1 >= 0) {
+          blockingBlockRightVert = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) + 1).padStart(2, "0")}`)[1];
+          blockingBlockRightVert.classList.add("blocking");
+        }
       }
-      if (Number(String(startIndex).padStart(2, "0")[1]) < 9 && String((Number(startIndex) + ship.length + 20) - i * 10) < 100 && String((Number(startIndex) + ship.length + 20) - i * 10) >= 0) {
-        blockingBlockRight = document.querySelectorAll(`#block-${String((Number(startIndex) + ship.length + 20) - i * 10).padStart(2, "0")}`)[1];
-        blockingBlockRight.classList.add("blocking");
+      for (let i = 0; i < 3; i++) {
+        let blockingBlockUpVert;
+        let blockingBlockDownVert;
+        if (Number(String(startIndex).padStart(2, "0")) - 11 + i >= 0) {
+          blockingBlockUpVert = document.querySelectorAll(`#block-${String(Number(startIndex) - 11 + i).padStart(2, "0")}`)[1];
+          blockingBlockUpVert.classList.add("blocking");``
+        }
+        if (Number(String(startIndex).padStart(2, "0")) + (((ship.length * 10) - 1) + i) <= 99) {
+          blockingBlockDownVert = document.querySelectorAll(`#block-${String(Number(startIndex) + (((ship.length * 10) - 1) + i)).padStart(2, "0")}`)[1];
+          blockingBlockDownVert.classList.add("blocking");
+        }
       }
     }
     shipBlocks.forEach((shipBlock) => {
