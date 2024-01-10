@@ -75,15 +75,8 @@ let isHorisontal = true;
 let notDropped;
 
 function getValidity(allBoardBlocks, isHorisontal, startIndex, ship) {
-  // console.log(isHorisontal);
-  // console.log(Number(String(startIndex)[0]));
-  // console.log(width - ship.length);
-  // console.log(Number(String(startIndex)[0]) > width - ship.length);
-  // console.log(startIndex)
-  // console.log(startIndex - (10 * (ship.length - 1)))
-
   let validStart = isHorisontal
-    ? Number(String(startIndex)[startIndex.length - 1]) > width - ship.length
+    ? Number(String(startIndex)[Math.floor(Math.log10(startIndex))]) > width - ship.length
       ? (startIndex - (String(Number(startIndex) + Number((ship.length - 1)))[String(Number(startIndex) + Number((ship.length - 1))).length - 1])) - 1
       : startIndex
     : Number(String(startIndex).padStart(2, '0')[0]) > width - ship.length
@@ -130,11 +123,11 @@ function generate(user, ship, startId) {
         let blockingBlockUpHor;
         let blockingBlockDownHor;
         if (Number(shipBlocks[i].id.substring(6)) - 10 >= 0) {
-          blockingBlockUpHor = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) - 10).padStart(2, "0")}`)[1];
+          blockingBlockUpHor = document.querySelector(`#${user} #block-${String(Number(shipBlocks[i].id.substring(6)) - 10).padStart(2, "0")}`);
           blockingBlockUpHor.classList.add("blocking");
         }
         if (Number(shipBlocks[i].id.substring(6)) + 10 <= 99) {
-          blockingBlockDownHor = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) + 10).padStart(2, "0")}`)[1];
+          blockingBlockDownHor = document.querySelector(`#${user} #block-${String(Number(shipBlocks[i].id.substring(6)) + 10).padStart(2, "0")}`);
           blockingBlockDownHor.classList.add("blocking");
         }
       }
@@ -142,11 +135,11 @@ function generate(user, ship, startId) {
         let blockingBlockLeftHor;
         let blockingBlockRightHor;
         if (Number(String(startIndex).padStart(2, "0")[1]) > 0 && (Number(startIndex) + 19) - (i * 10) < 100 && (Number(startIndex) + 19) - (i * 10) >= 0) {
-          blockingBlockLeftHor = document.querySelectorAll(`#block-${String((Number(startIndex) + 19) - (i * 10)).padStart(2, "0")}`)[1];
+          blockingBlockLeftHor = document.querySelector(`#${user} #block-${String((Number(startIndex) + 19) - (i * 10)).padStart(2, "0")}`);
           blockingBlockLeftHor.classList.add("blocking");
         }
         if (Number(String(startIndex).padStart(2, "0")[1]) < 9 && String((Number(startIndex) + ship.length + 20) - i * 10) < 100 && String((Number(startIndex) + ship.length + 20) - i * 10) >= 0) {
-          blockingBlockRightHor = document.querySelectorAll(`#block-${String((Number(startIndex) + ship.length + 20) - i * 10).padStart(2, "0")}`)[1];
+          blockingBlockRightHor = document.querySelector(`#${user} #block-${String((Number(startIndex) + ship.length + 20) - i * 10).padStart(2, "0")}`);
           blockingBlockRightHor.classList.add("blocking");
         }
       }
@@ -154,17 +147,13 @@ function generate(user, ship, startId) {
       for (let i = 0; i < ship.length; i++) {
         let blockingBlockLeftVert;
         let blockingBlockRightVert;
-        console.log(startIndex);
-        console.log(Number(String(startIndex).padStart(2, "0")[1]) > 0);
-        console.log((Number(startIndex) + ((ship.length - 1) * 10) - 1) - (i * 10));
-        console.log('------------------------------------------------');
         Number(shipBlocks[i].id.substring(6))
         if (Number(shipBlocks[i].id.substring(6).padStart(2, "0")[1]) > 0 && Number(shipBlocks[i].id.substring(6)) - 1 < 100 && Number(shipBlocks[i].id.substring(6)) - 1 >= 0) {
-          blockingBlockLeftVert = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) - 1).padStart(2, "0")}`)[1];
+          blockingBlockLeftVert = document.querySelector(`#${user} #block-${String(Number(shipBlocks[i].id.substring(6)) - 1).padStart(2, "0")}`);
           blockingBlockLeftVert.classList.add("blocking");
         }
         if (Number(shipBlocks[i].id.substring(6).padStart(2, "0")[1]) < 9 && Number(shipBlocks[i].id.substring(6)) + 1 < 100 && Number(shipBlocks[i].id.substring(6)) + 1 >= 0) {
-          blockingBlockRightVert = document.querySelectorAll(`#block-${String(Number(shipBlocks[i].id.substring(6)) + 1).padStart(2, "0")}`)[1];
+          blockingBlockRightVert = document.querySelector(`#${user} #block-${String(Number(shipBlocks[i].id.substring(6)) + 1).padStart(2, "0")}`);
           blockingBlockRightVert.classList.add("blocking");
         }
       }
@@ -172,11 +161,11 @@ function generate(user, ship, startId) {
         let blockingBlockUpVert;
         let blockingBlockDownVert;
         if (Number(String(startIndex).padStart(2, "0")) - 11 + i >= 0) {
-          blockingBlockUpVert = document.querySelectorAll(`#block-${String(Number(startIndex) - 11 + i).padStart(2, "0")}`)[1];
-          blockingBlockUpVert.classList.add("blocking");``
+          blockingBlockUpVert = document.querySelector(`#${user} #block-${String(Number(startIndex) - 11 + i).padStart(2, "0")}`);
+          blockingBlockUpVert.classList.add("blocking"); ``
         }
         if (Number(String(startIndex).padStart(2, "0")) + (((ship.length * 10) - 1) + i) <= 99) {
-          blockingBlockDownVert = document.querySelectorAll(`#block-${String(Number(startIndex) + (((ship.length * 10) - 1) + i)).padStart(2, "0")}`)[1];
+          blockingBlockDownVert = document.querySelector(`#${user} #block-${String(Number(startIndex) + (((ship.length * 10) - 1) + i)).padStart(2, "0")}`);
           blockingBlockDownVert.classList.add("blocking");
         }
       }
