@@ -91,9 +91,9 @@ h1 {
 }
 
 .taken {
-  background-color: red !important;
+  /* background-color: red !important; */
 }
 
 .blocking {
-  background-color: #4c9524 !important;
+  /* background-color: #4c9524 !important; */
 }

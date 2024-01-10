@@ -74,7 +74,7 @@ let isHorisontal = true;
 
 let notDropped;
 
-function getValidity(allBoardBlocks, isHorisontal, startIndex, ship) {
+function getValidity(allBoardBlocks, isHorisontal, startIndex, ship, user = 'human') {
   let validStart = isHorisontal
     ? Number(String(startIndex)[Math.floor(Math.log10(startIndex))]) > width - ship.length
       ? (startIndex - (String(Number(startIndex) + Number((ship.length - 1)))[String(Number(startIndex) + Number((ship.length - 1))).length - 1])) - 1
@@ -92,9 +92,16 @@ function getValidity(allBoardBlocks, isHorisontal, startIndex, ship) {
     }
   }
 
-  const notTaken = shipBlocks.every(
-    (shipBlocks) => !shipBlocks.classList.contains("taken")
-  );
+  let notTaken;
+  for (let i = 0; i < shipBlocks.length; i++) {
+    notTaken = !shipBlocks[i].classList.contains("taken");
+    if (!notTaken) {
+      break;
+    } else {
+      notTaken = !shipBlocks[i].classList.contains("blocking");
+      if (!notTaken) break;
+    }
+  }
 
   return { shipBlocks, notTaken };
 }
@@ -114,7 +121,8 @@ function generate(user, ship, startId) {
     allBoardBlocks,
     isHorisontal,
     startIndex,
-    ship
+    ship,
+    user
   );
 
   if (notTaken) {
@@ -138,7 +146,7 @@ function generate(user, ship, startId) {
           blockingBlockLeftHor = document.querySelector(`#${user} #block-${String((Number(startIndex) + 19) - (i * 10)).padStart(2, "0")}`);
           blockingBlockLeftHor.classList.add("blocking");
         }
-        if (Number(String(startIndex).padStart(2, "0")[1]) < 9 && String((Number(startIndex) + ship.length + 20) - i * 10) < 100 && String((Number(startIndex) + ship.length + 20) - i * 10) >= 0) {
+        if (Number(String(Number(startIndex) + ship.length).padStart(2, "0")[1]) !== 0 && String((Number(startIndex) + ship.length + 20) - i * 10) < 100 && String((Number(startIndex) + ship.length + 20) - i * 10) >= 0) {
           blockingBlockRightHor = document.querySelector(`#${user} #block-${String((Number(startIndex) + ship.length + 20) - i * 10).padStart(2, "0")}`);
           blockingBlockRightHor.classList.add("blocking");
         }
