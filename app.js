@@ -103,12 +103,8 @@ function getValidity(allBoardBlocks, isHorisontal, startIndex, ship, user = 'hum
 }
 
 function generate(user, ship, startId) {
-  //   const allBoardBlocks = document.querySelectorAll("#computer div");
-  //   let randomBoolean = Math.random() < 0.5;
-  //   isHorisontal = randomBoolean;
   const allBoardBlocks = document.querySelectorAll(`#${user} div`);
   let randomBoolean = Math.random() < 0.5;
-  // isHorisontal = user === "human" ? angle === 0 : randomBoolean;
   isHorisontal = user === "human" ? angle === 0 : randomBoolean;
   let randomStartIndex = Math.floor(Math.random() * width * width);
   let startIndex = startId ? startId.substr(6) : randomStartIndex;
@@ -188,12 +184,6 @@ function generate(user, ship, startId) {
       playSound('sound3');
     }
   }
-
-  // console.log(shipBlocks);
-  //   shipBlocks.forEach((shipBlock) => {
-  //     shipBlock.classList.add(ship.name);
-  //     shipBlock.classList.add("taken");
-  //   });
 }
 
 //generate(ship3);
