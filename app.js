@@ -4,6 +4,7 @@ const gameBoardsContainer = document.querySelector("#game-boards");
 const startButton = document.querySelector("#start");
 const turn = document.querySelector("#turn");
 const info = document.querySelector("#info");
+const reloadBtn = document.querySelector('#reload');
 
 let angle = 0;
 let width = 10;
@@ -270,6 +271,7 @@ function computerGo() {
         allBoardsBlocks[rand].classList.contains("taken") &&
         !allBoardsBlocks[rand].classList.contains("boom")
       ) {
+        playSound('true');
         allBoardsBlocks[rand].classList.add("boom");
         info.textContent = "Computer hit your ship!";
         let classes = Array.from(allBoardsBlocks[rand].classList);
@@ -283,6 +285,7 @@ function computerGo() {
         // console.log(computerHits);
         checkScore("computer", computerHits, computerSunkShips);
       } else {
+        playSound('false');
         info.textContent = "Nothing hit";
         turn.textContent = "";
         allBoardsBlocks[rand].classList.add("empty");
@@ -303,6 +306,7 @@ function computerGo() {
 function handleClick(event) {
   if (!gameOver)
     if (event.target.classList.contains("taken")) {
+      playSound('true');
       event.target.classList.add("boom");
       info.innerHTML = "You hit computer's ship!";
       let classes = Array.from(event.target.classList);
@@ -314,6 +318,7 @@ function handleClick(event) {
       // console.log(humanHits);
       checkScore("human", humanHits, humanSunkShips);
     } else {
+      playSound('false');
       info.textContent = "You missed it";
       event.target.classList.add("empty");
     }
@@ -395,3 +400,8 @@ function callModal(resultText, resultColor) {
     modal.hide();
   }, 1500);
 }
+
+const reload = () => {
+  location.reload();
+}
+reloadBtn.addEventListener('click', reload);
