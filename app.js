@@ -17,12 +17,7 @@ let computerSunkShips = [];
 let humanSunkShips = [];
 
 function rotate() {
-  // const optionShips = gameOptionContainer.children;
-  //console.log(optionShips);
-  //   for (const ship of optionShips) {
-  //     console.log(ship.className);
-  //     ship.style.transform = "rotate(90deg)";
-  //   }
+  playSound('sound2');
   const optionShips = Array.from(gameOptionContainer.children);
   angle = angle === 0 ? 90 : 0;
   optionShips.forEach(
@@ -47,8 +42,8 @@ function createBoard(color, user) {
   }
 }
 
-createBoard("tan", "human");
-createBoard("pink", "computer");
+createBoard("#8cd29f", "human");
+createBoard("#e38a82", "computer");
 
 class Ship {
   constructor(name, length) {
@@ -181,10 +176,16 @@ function generate(user, ship, startId) {
     shipBlocks.forEach((shipBlock) => {
       shipBlock.classList.add(ship.name);
       shipBlock.classList.add("taken");
+      if (user === 'human') {
+        playSound('sound1');
+      }
     });
   } else {
     if (user === "computer") generate(user, ship);
-    if (user === "human") notDropped = true;
+    if (user === "human") {
+      notDropped = true;
+      playSound('sound3');
+    }
   }
 
   // console.log(shipBlocks);
@@ -214,10 +215,12 @@ allUserBlocks.forEach((userBlock) => {
 function dragStart(event) {
   draggedShip = event.target;
   notDropped = false;
+  event.dataTransfer.dropEffect = 'copy';
 }
 
 function dragOver(event) {
   event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';
   const ship = ships[draggedShip.id.substr(5)];
   highlight(event.target.id.substr(6), ship);
 }
@@ -250,8 +253,8 @@ function highlight(startIndex, ship) {
 
 function computerGo() {
   if (!gameOver) {
-    turn.textContent = "Computers Go!";
-    info.textContent = "Computers is thinking...";
+    turn.textContent = "Computer's turn!";
+    info.textContent = "Computer is thinking...";
 
     setTimeout(() => {
       let rand = Math.floor(Math.random() * width * width);
@@ -281,13 +284,14 @@ function computerGo() {
         checkScore("computer", computerHits, computerSunkShips);
       } else {
         info.textContent = "Nothing hit";
+        turn.textContent = "";
         allBoardsBlocks[rand].classList.add("empty");
       }
     }, 3000);
     setTimeout(() => {
       humanTurn = true;
-      turn.textContent = "Your Go!";
-      info.textContent = "Your turn!";
+      turn.textContent = "Your turn!";
+      info.textContent = "";
       const allBoardBlocks = document.querySelectorAll("#computer div");
       allBoardBlocks.forEach((block) =>
         block.addEventListener("click", handleClick)
@@ -300,7 +304,7 @@ function handleClick(event) {
   if (!gameOver)
     if (event.target.classList.contains("taken")) {
       event.target.classList.add("boom");
-      info.innerHTML = "You hit computers ship!";
+      info.innerHTML = "You hit computer's ship!";
       let classes = Array.from(event.target.classList);
       classes = classes.filter(
         (className) =>
@@ -320,19 +324,19 @@ function handleClick(event) {
 }
 
 function startGame() {
+  playSound('sound2');
   if (gameOptionContainer.children.length != 0) {
     info.innerHTML = "Place all your ships!";
   } else {
-    info.innerHTML = "Congrat!";
-
+    humanTurn = true;
+    turn.textContent = "Your turn!";
+    info.textContent = "The game has started!";
+    // info.innerHTML = "Congrat!";
     const allBoardBlocks = document.querySelectorAll("#computer div");
     allBoardBlocks.forEach((block) =>
       block.addEventListener("click", handleClick)
     );
   }
-  humanTurn = true;
-  turn.textContent = "You Go!";
-  info.textContent = "The game has started!";
 }
 
 startButton.addEventListener("click", startGame);
@@ -366,11 +370,28 @@ function checkScore(user, userHits, userSunkShips) {
   // console.log("userHits", user, userHits);
   // console.log("userSunkShips", user, userSunkShips);
   if (humanSunkShips.length === 10) {
-    info.textContent = "You won!";
+    playSound('victory');
+    callModal("You won!", 'lightgreen');
     gameOver = true;
   }
   if (computerSunkShips.length === 10) {
-    info.textContent = "Computer won!";
+    playSound('game-over');
+    callModal("Computer won!", 'pink');
     gameOver = true;
   }
+}
+
+function playSound(sound) {
+  const song = document.querySelector(`#${sound}`);
+  song.play();
+}
+
+function callModal(resultText, resultColor) {
+  let modal = new bootstrap.Modal(document.querySelector('#result'))
+  modal.show();
+  document.querySelector('#modal-body').textContent = resultText;
+  document.querySelector('#modal-content').style.background = resultColor;
+  setTimeout(function () {
+    modal.hide();
+  }, 1500);
 }

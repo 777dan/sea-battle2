@@ -1,42 +1,23 @@
 html,
 body {
-  margin: 0;
-  height: 100%;
-}
-
-* {
-  box-sizing: border-box;
+  background-color: rgb(174, 233, 238);
 }
 
 h1 {
-  color: #1022ee;
-  text-align: center;
-}
-
-.container {
-  margin-left: 20px;
+  color: rgb(22, 113, 121);
 }
 
 #game-option {
-  display: flex;
+  /* display: flex;
   width: 530px;
-  height: 100px;
-  background-color: gold;
-  padding: 20px;
-  margin: 20px;
-  align-items: center;
+  height: 100px; */
+  background-color: rgb(29, 165, 178);
   gap: 10px;
 }
 
-#game-boards {
-  width: 500px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .game-board {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -45,16 +26,20 @@ h1 {
   display: flex;
 }
 
+.ship:hover {
+  cursor: grab;
+}
+
 .block {
-  width: 20px;
-  height: 20px;
-  border: dotted gray 1px;
+  width: 30px;
+  height: 30px;
+  border: solid gray 1px;
 }
 
 .deck {
-  width: 20px;
-  height: 20px;
-  border: dotted gray 1px;
+  width: 30px;
+  height: 30px;
+  border: solid gray 1px;
 }
 
 .deck-one {
@@ -87,13 +72,39 @@ h1 {
 }
 
 #computer .block {
-  background-color: pink;
+  background-color: #e38a82;
 }
 
-.taken {
-  /* background-color: red !important; */
+#game-info {
+  font-size: 32px;
+  height: 10vh;
+}
+
+#modal-body {
+  font-size: 32px;
+}
+
+/* .taken {
+  background-color: red !important;
 }
 
 .blocking {
-  /* background-color: #4c9524 !important; */
+  background-color: #4c9524 !important;
+} */
+
+@media (max-width: 641px) {
+  .game-board {
+    width: 250px;
+    height: 250px;
+  }
+
+  .deck {
+    width: 25px;
+    height: 25px;
+  }
+
+  .block {
+    width: 25px;
+    height: 25px;
+  }
 }

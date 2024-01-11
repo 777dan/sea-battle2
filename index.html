@@ -5,17 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sea Battle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Sea Battle</h1>
-    <div id="game-info" class="container">
-        <p>Turn: <span id="turn"></span></p>
-        <p>Info: <span id="info"></span></p>
+    <audio id="sound1" src="./sounds/sound1.mp3" type="audio/mp3"></audio>
+    <audio id="sound2" src="./sounds/sound2.mp3" type="audio/mp3"></audio>
+    <audio id="sound3" src="./sounds/sound3.mp3" type="audio/mp3"></audio>
+    <audio id="game-over" src="./sounds/game-over.mp3" type="audio/mp3"></audio>
+    <audio id="victory" src="./sounds/victory.mp3" type="audio/mp3"></audio>
+    <div class="container-fluid d-flex justify-content-center my-5">
+        <h1>Sea Battle</h1>
     </div>
-    <div id="game-boards" class="container"></div>
-    <div id="game-option" class="container">
+    <div id="result" class="modal fade">
+        <div class="modal-dialog">
+            <div id="modal-content" class="modal-content">
+                <div id='modal-body' class="modal-body text-center"></div>
+            </div>
+        </div>
+    </div>
+    <div id="game-info" class="container my-4">
+        <span id="turn" class="row justify-content-center"></span>
+        <span id="info" class="row justify-content-center"></span>
+    </div>
+    <div id="game-boards" class="container-fluid d-flex flex-wrap-reverse justify-content-around"></div>
+    <div id="game-option" class="container-fluid d-flex flex-wrap justify-content-center my-5 py-5">
         <div id="ship-0" class="ship deck-one" draggable="true">
             <div id="deck-one-0" class="deck"></div>
         </div>
@@ -57,9 +73,13 @@
             <div id="deck-four-2" class="deck"></div>
         </div>
     </div>
-    <div class="setup-buttons container" id="setup-buttons">
-        <button id="start" class="btn">Start Game</button>
-        <button id="rotate" class="btn">Rotate Your Ships</button>
+    <div class="setup-buttons container-fluid mb-5" id="setup-buttons">
+        <div class="row justify-content-center">
+            <button id="start" class="col-6 col-sm-4 col-md-2 col-xl-1 btn btn-primary my-1">Start Game</button>
+        </div>
+        <div class="row justify-content-center">
+            <button id="rotate" class="col-6 col-sm-4 col-md-2 col-xl-1 btn btn-primary my-1">Rotate Your Ships</button>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
